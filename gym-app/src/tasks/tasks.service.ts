@@ -1,26 +1,66 @@
 import { Injectable } from '@nestjs/common';
+import { Task, TaskStatus } from './task.model';
+import { v4 as uuid } from 'uuid';
 import { CreateTaskDto } from './dto/create-task.dto';
-import { UpdateTaskDto } from './dto/update-task.dto';
+import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
+import { UpdateTaskStatusDto } from './dto/update-task-status.dto';
 
 @Injectable()
 export class TasksService {
-  create(createTaskDto: CreateTaskDto) {
-    return 'This action adds a new task';
+  private tasks: Task[] = [];
+
+  getAllTasks(): Task[] {
+    return this.tasks;
   }
 
-  findAll() {
-    return `This action returns all tasks`;
+  getTasksWithFilters(filterDto: GetTasksFilterDto): Task[] {
+    const { status, search } = filterDto;
+
+    let tasks = this.getAllTasks();
+
+    // do something with status
+    if (status) {
+      tasks = tasks.filter((task) => task.status === status);
+    }
+
+    if (search) {
+      tasks = tasks.filter((task) => {
+        if (task.title.includes(search) || task.description.includes(search)) {
+          return true;
+        }
+
+        return false;
+      });
+    }
+
+    return tasks;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} task`;
+  getTaskById(id: string): Task {
+    return this.tasks.find((task) => task.id === id);
   }
 
-  update(id: number, updateTaskDto: UpdateTaskDto) {
-    return `This action updates a #${id} task`;
+  createTask(createTaskDto: CreateTaskDto): Task {
+    const { title, description } = createTaskDto;
+
+    const task: Task = {
+      id: uuid(),
+      title,
+      description,
+      status: TaskStatus.OPEN,
+    };
+
+    this.tasks.push(task);
+    return task;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} task`;
+  deleteTask(id: string): void {
+    this.tasks = this.tasks.filter((task) => task.id !== id);
+  }
+
+  updateTaskStatus(id: string, updateTaskStatusDto: UpdateTaskStatusDto) {
+    const task = this.getTaskById(id);
+    task.status = updateTaskStatusDto.status;
+    return task;
   }
 }
