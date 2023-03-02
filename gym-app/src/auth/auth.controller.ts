@@ -1,10 +1,10 @@
-import { Body, Req, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
+import { Body, Req, Controller, HttpCode, Post, UseGuards, Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import RequestWithUser from './requestWithUser.interface';
-import { LocalAuthenticationGuard } from './localAuthentication.guard';
+import RequestWithUser from './types/requestWithUser.interface';
+import { LocalAuthenticationGuard } from './guards/localAuthentication.guard';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
-import { get } from 'http';
- 
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+
 
 @Controller('auth')
 export class AuthController {
@@ -19,9 +19,13 @@ export class AuthController {
   @UseGuards(LocalAuthenticationGuard)
   @Post('signIn')
   async signIn(@Req() request: RequestWithUser) {
-    const user = request.user;
-    user.password = undefined;
-    return user;
+    return this.authService.issueJwt(request.user);
+  }
+
+  @Get('me')
+  @UseGuards(JwtAuthGuard)
+  async me(@Req() request: RequestWithUser) {
+    return request.user;
   }
 }
 

@@ -2,10 +2,15 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private jwtService: JwtService,
+    private readonly usersService: UsersService
+    ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
     const user = await this.usersService.findUserByEmail(email);
@@ -37,6 +42,13 @@ export class AuthService {
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
+  }
+
+  public async issueJwt(user: User) { 
+    const payload = { email: user.email, id: user.id };
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
   }
 
   public async signIn(email: string, hashedPassword: string) {
