@@ -1,6 +1,6 @@
 import { Body, Req, Controller, HttpCode, Post, UseGuards, Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import RequestWithUser from './types/requestWithUser.interface';
+import RequestWithUser from '../common/types/requestWithUser.interface';
 import { LocalAuthenticationGuard } from './guards/localAuthentication.guard';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
