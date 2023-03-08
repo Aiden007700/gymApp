@@ -1,1 +1,3 @@
-JWT_SECRET="replace"
+JWT_SECRET="replace with string"
+DB_URL="replace with mysql DB_URL"
+DB_SSL="https://planetscale.com/docs/concepts/secure-connections#redhat--fedora--centos--mageia--vercel--netlify"
