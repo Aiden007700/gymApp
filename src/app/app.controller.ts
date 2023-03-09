@@ -6,5 +6,4 @@ export class AppController {
     awsHealthCheck() {
         return { status: 'thank you for the help' };
     }
-    
 }
