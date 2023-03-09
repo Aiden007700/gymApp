@@ -7,6 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { getEnvPath } from './common/helper/env.helper';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './auth/guards/roles.guard';
+import * as fs from 'fs';
 
 const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
 
@@ -26,10 +27,10 @@ To change env file, set NODE_ENV to one of the following: development, productio
         type: 'mysql',
         database: 'gymApp',
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: true,
+        synchronize: false,
         autoLoadEntities: true,
         ssl: {
-          ca: configService.get('DB_SSL'),
+          ca: fs.readFileSync('/etc/ssl/certs/ca-certificates.crt'),
         },
         url: configService.get('DB_URL'),
       }),
