@@ -9,7 +9,7 @@ export class UsersController {
 
     //delete this later
     @Get()
-    @Roles(Role.Admin)
+    // @Roles(Role.Admin)
     async get() {
       return this.usersService.find()
     }

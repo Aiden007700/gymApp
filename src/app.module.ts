@@ -30,9 +30,9 @@ To change env file, set NODE_ENV to one of the following: development, productio
         synchronize: false,
         autoLoadEntities: true,
         ssl: {
-          ca: fs.readFileSync('/etc/ssl/certs/ca-certificates.crt'),
+          ca: fs.readFileSync(process.env.DB_SSL || configService.get('DB_SSL')),
         },
-        url: configService.get('DB_URL'),
+        url: process.env.DB_URL || configService.get('DB_URL'),
       }),
       inject: [ConfigService],
     }),
