@@ -7,7 +7,7 @@ import { AuthService } from '../auth.service';
 @Injectable()
 export class MagicLoginStrategy extends PassportStrategy(Strategy) {
   private readonly logger = new Logger(MagicLoginStrategy.name);
-
+  
   constructor(
     private readonly configService: ConfigService,
     private readonly authService: AuthService,
