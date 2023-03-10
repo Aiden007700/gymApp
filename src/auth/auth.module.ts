@@ -7,6 +7,7 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MagicLoginStrategy } from './strategies/magicLogin.strategy';
 
 @Module({
   imports: [
@@ -17,13 +18,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       useFactory: async (configService: ConfigService) => ({
         secret: process.env.JWT_SECRET || configService.get('JWT_SECRET'),
         signOptions: {
-            expiresIn: 3600,
+          expiresIn: 3600,
         },
       }),
       inject: [ConfigService],
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy, MagicLoginStrategy],
 })
 export class AuthModule {}
