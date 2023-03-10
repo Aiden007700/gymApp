@@ -1,4 +1,14 @@
-import { Body, Req, Controller, HttpCode, Post, UseGuards, Get, Query, Res } from '@nestjs/common';
+import {
+  Body,
+  Req,
+  Controller,
+  HttpCode,
+  Post,
+  UseGuards,
+  Get,
+  Query,
+  Res,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import RequestWithUser from '../common/types/requestWithUser.interface';
 import { LocalAuthenticationGuard } from './guards/localAuthentication.guard';
@@ -7,19 +17,18 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { MagicLoginStrategy } from './strategies/magicLogin.strategy';
 import { AuthGuard } from '@nestjs/passport';
 
-
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly magicLoginStrategy: MagicLoginStrategy
-    ) {}
+    private readonly magicLoginStrategy: MagicLoginStrategy,
+  ) {}
 
   @Post('signUp')
   async signUp(@Body() createUserDto: CreateUserDto) {
     return this.authService.signUp(createUserDto);
   }
- 
+
   @HttpCode(200)
   @UseGuards(LocalAuthenticationGuard)
   @Post('signIn')
@@ -45,5 +54,3 @@ export class AuthController {
     return this.authService.issueJwt(request.user);
   }
 }
-
-
