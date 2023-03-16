@@ -15,3 +15,10 @@ async function bootstrap() {
 }
 
 bootstrap();
+
+//TODO remove hashed password from user entity response
+// TODO finisg exercise resource
+// TODO document all paths using swagger
+// TODO create a postman colection / script
+// TODO add logging
+// TODO add tests

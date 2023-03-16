@@ -4,6 +4,6 @@ import { Controller, Get } from '@nestjs/common';
 export class AppController {
     @Get()
     awsHealthCheck() {
-        return { status: 'this has changed, i did a refactor' };
+        return { status: 'added exercise table' };
     }
 }

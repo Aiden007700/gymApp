@@ -1,6 +1,7 @@
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from '../../modules/users/entities/user.entity';
 import { Task } from '../../modules/tasks/entities/task.entity';
+import { Exercise } from '../../modules/exercise/entities/exercise.entity';
 import { DataSource } from 'typeorm';
 import { config } from 'dotenv'
 import {
@@ -8,6 +9,7 @@ import {
   TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
 import { init1678978661834 } from '../../../migrations/1678978661834-init';
+import { exersizeWip1678999265285 } from '../../../migrations/1678999265285-exersizeWip';
 
 
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
@@ -34,9 +36,9 @@ export default new DataSource({
   type: 'postgres',
   synchronize: false,
   host: process.env.DB_URL,
-  entities: [Task, User],
+  entities: [Task, User, Exercise],
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  migrations: [init1678978661834],
+  migrations: [init1678978661834, exersizeWip1678999265285],
 });
