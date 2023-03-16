@@ -1,6 +1,7 @@
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from '../../modules/users/entities/user.entity';
 import { Task } from '../../modules/tasks/entities/task.entity';
+import { Exercise } from '../../modules/exercise/entities/exercise.entity';
 import { DataSource } from 'typeorm';
 import { config } from 'dotenv'
 import {
@@ -34,7 +35,7 @@ export default new DataSource({
   type: 'postgres',
   synchronize: false,
   host: process.env.DB_URL,
-  entities: [Task, User],
+  entities: [Task, User, Exercise],
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
