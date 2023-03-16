@@ -6,7 +6,7 @@ import { UpdateTaskStatusDto } from './dto/update-task-status.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
-import { User } from 'src/users/entities/user.entity';
+import { User } from 'src/modules/users/entities/user.entity';
 import { use } from 'passport';
 
 @Injectable()
