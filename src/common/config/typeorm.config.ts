@@ -9,6 +9,7 @@ import {
   TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
 import { init1678978661834 } from '../../../migrations/1678978661834-init';
+import { exersizeWip1678999265285 } from '../../../migrations/1678999265285-exersizeWip';
 
 
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
@@ -39,5 +40,5 @@ export default new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  migrations: [init1678978661834],
+  migrations: [init1678978661834, exersizeWip1678999265285],
 });
