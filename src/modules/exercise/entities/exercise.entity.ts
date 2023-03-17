@@ -1,5 +1,7 @@
+import { Exclude } from "class-transformer";
 import { muscleGroupType, difficultyType } from "src/common/types/types";
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { User } from "../../users/entities/user.entity";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Exercise {
@@ -26,6 +28,10 @@ export class Exercise {
 
     @Column()
     imageUrl: string;
+
+    @ManyToOne(() => User, user => user.exercises, { eager: false })
+    @Exclude({ toPlainOnly: true })
+    user: User;
 
     @CreateDateColumn({ name: 'created_at' }) 
     created_at: Date;

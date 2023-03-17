@@ -27,6 +27,6 @@ export class UsersService {
 
     // delete this later
     async find() {
-        return this.userRepository.find()
-    }
+        return await this.userRepository.find();
+    }   
 }
