@@ -2,6 +2,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from '../../modules/users/entities/user.entity';
 import { Task } from '../../modules/tasks/entities/task.entity';
 import { Exercise } from '../../modules/exercise/entities/exercise.entity';
+import { Nutraceutical } from '../../modules/nutraceuticals/entities/nutraceutical.entity';
 import { DataSource } from 'typeorm';
 import { config } from 'dotenv'
 import {
@@ -11,6 +12,7 @@ import {
 import { init1678978661834 } from '../../../migrations/1678978661834-init';
 import { exersizeWip1678999265285 } from '../../../migrations/1678999265285-exersizeWip';
 import { exersizev21679071393590 } from '../../../migrations/1679071393590-exersizev2';
+import { nutraceuticals1679239098525 } from '../../../migrations/1679239098525-nutraceuticals';
 
 
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
@@ -37,9 +39,9 @@ export default new DataSource({
   type: 'postgres',
   synchronize: false,
   host: process.env.DB_URL,
-  entities: [Task, User, Exercise],
+  entities: [Task, User, Exercise, Nutraceutical],
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  migrations: [init1678978661834, exersizeWip1678999265285, exersizev21679071393590],
+  migrations: [init1678978661834, exersizeWip1678999265285, exersizev21679071393590, nutraceuticals1679239098525],
 });

@@ -9,6 +9,7 @@ import { RolesGuard } from './modules/auth/guards/roles.guard';
 import { AppController } from './modules/app/app.controller';
 import { ExerciseModule } from './modules/exercise/exercise.module';
 import { typeOrmAsyncConfig } from './common/config/typeorm.config';
+import { NutraceuticalsModule } from './modules/nutraceuticals/nutraceuticals.module';
 
 
 
@@ -20,12 +21,7 @@ import { typeOrmAsyncConfig } from './common/config/typeorm.config';
     AuthModule,
     UsersModule,
     ExerciseModule,
-  ],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard,
-    },
+    NutraceuticalsModule,
   ],
   controllers: [AppController],
 })
